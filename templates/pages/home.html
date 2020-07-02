@@ -1,1 +1,39 @@
-<h1>Hello Himanshu</h1>
+{% extends 'base.html' %} {%block content%} Welcome to MeTweet, made by himanshu
+<div id="tweets">
+  Replace Me
+</div>
+<script>
+  const tweetsElement = document.getElementById("tweets");
+  //   tweetsElement.innerHTML = "Loading...";
+  const xhr = new XMLHttpRequest();
+  const method = "GET";
+  const url = "/tweets";
+  const responseType = "json";
+
+  function formatTweetElement(tweet) {
+    var formattedTweet =
+      "<div class = 'mb-4 tweet' id = 'tweet -id" +
+      tweet.id +
+      "'<p>" +
+      tweet.content +
+      "</p></div>";
+    return formattedTweet;
+  }
+  xhr.responseType = responseType;
+  xhr.open(method, url);
+  xhr.onload = function () {
+    const serverResponse = xhr.response;
+    const listedItems = serverResponse.response;
+    var finalTweetStr = "";
+    var i;
+    for (i = 0; i < listedItems.length; i++) {
+      var tweetObj = listedItems[i];
+      var currentItem = formattedTweet(tweetObj);
+      finalTweetStr += currentItem;
+    }
+    tweetsElement.innerHTML = finalTweetStr;
+    console.log(listedItems);
+  };
+  xhr.send();
+</script>
+{%endblock content%}
