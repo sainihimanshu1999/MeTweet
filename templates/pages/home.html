@@ -2,37 +2,45 @@
 <div id="tweets">
   Replace Me
 </div>
+
 <script>
-  const tweetsElement = document.getElementById("tweets");
-  //   tweetsElement.innerHTML = "Loading...";
+  const tweetsElement = document.getElementById("tweets"); // get an html element
+
   const xhr = new XMLHttpRequest();
-  const method = "GET";
+  const method = "GET"; // "POST"
   const url = "/tweets";
   const responseType = "json";
 
+  function handleDidLike(twee_id, currentCount) {}
+
+  function LikeBtn() {
+    return "<button class='btn btn-success' onCLicke = handleDidLike(tweet_id, currentLike)>Like</button>";
+  }
+
   function formatTweetElement(tweet) {
     var formattedTweet =
-      "<div class = 'mb-4 tweet' id = 'tweet -id" +
+      "<div class='mb-4 tweet' id='tweet-" +
       tweet.id +
-      "'<p>" +
+      "'><p>" +
       tweet.content +
-      "</p></div>";
+      '</p><div class = "btn-group">' +
+      LikeBtn() +
+      "</div></div>";
     return formattedTweet;
   }
   xhr.responseType = responseType;
   xhr.open(method, url);
   xhr.onload = function () {
     const serverResponse = xhr.response;
-    const listedItems = serverResponse.response;
+    const listedItems = serverResponse.response; // array
     var finalTweetStr = "";
     var i;
     for (i = 0; i < listedItems.length; i++) {
       var tweetObj = listedItems[i];
-      var currentItem = formattedTweet(tweetObj);
+      var currentItem = formatTweetElement(tweetObj);
       finalTweetStr += currentItem;
     }
     tweetsElement.innerHTML = finalTweetStr;
-    console.log(listedItems);
   };
   xhr.send();
 </script>
