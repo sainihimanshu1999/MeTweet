@@ -1,5 +1,10 @@
-{% extends 'base.html' %} {%block content%} Welcome to MeTweet, made by himanshu
-<div id="tweets">
+{% extends 'base.html' %} {%block content%}
+<div class='row text-center'>
+  <div class="col">
+    <h1>Welcome to MeTweet</h1>
+  </div>
+</div>
+<div class="row" id="tweets">
   Replace Me
 </div>
 
@@ -11,20 +16,30 @@
   const url = "/tweets";
   const responseType = "json";
 
-  function handleDidLike(twee_id, currentCount) {}
+  function handleDidLike(tweet_id, currentCount) {
+    console.log(tweet_id, currentCount);
+  }
 
-  function LikeBtn() {
-    return "<button class='btn btn-success' onCLicke = handleDidLike(tweet_id, currentLike)>Like</button>";
+  function LikeBtn(tweet) {
+    return (
+      "<button class='btn btn-success' onClick = handleDidLike(" +
+      tweet.id +
+      "," +
+      tweet.likes +
+      ")> " +
+      tweet.likes +
+      " Like</button>"
+    );
   }
 
   function formatTweetElement(tweet) {
     var formattedTweet =
-      "<div class='mb-4 tweet' id='tweet-" +
+      "<div class='col-12 col-md-10 mx-auto border rounded py-3 mb-4 tweet' id='tweet-" +
       tweet.id +
       "'><p>" +
       tweet.content +
       '</p><div class = "btn-group">' +
-      LikeBtn() +
+      LikeBtn(tweet) +
       "</div></div>";
     return formattedTweet;
   }
