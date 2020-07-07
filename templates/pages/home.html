@@ -29,22 +29,24 @@
     const method = myForm.getAttribute('method')
     const xhr = new XMLHttpRequest
     xhr.open(method, url)
-    xhr.setRequestHeader('HTTP_X_REQUESTED_WITH', 'XMLHttpRequest')
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
+    xhr.setRequestHeader("HTTP_X_REQUESTED_WITH", "XMLHttpRequest")
+    xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest")
     xhr.onload = function () {
-      const serverResponse = xhr.response
-      console.log(serverResponse)
-      const tweetsEl = document.getElementById("tweets")
-      loadTweets(tweetsEl)
+      if (xhr.status === 201) {
+        const newTweet = xhr.response
+        const newTweetJson = JSON.parse(newTweet)
+        const newTweetElement = formatTweetElement(newTweetJson)
+        console.log(newTweetElement)
+      }
+
 
     }
     xhr.send(myFormData)
   }
   const tweetCreateFormEl = document.getElementById('tweet-create-form')
-
   tweetCreateFormEl.addEventListener('submit', handleTweetCreateFormDidSubmit)
 
-  const tweetsEl = document.getElementById("tweets");
+  const tweetsContainerElement = document.getElementById("tweets");
 
   function loadTweets(tweetsElement) {
     const xhr = new XMLHttpRequest();
@@ -68,7 +70,7 @@
     xhr.send();
   }
 
-  loadTweets(tweetsEl)
+  loadTweets(tweetsContainerElement)
 
 
 
