@@ -133,13 +133,13 @@
 
 
 
-  function handleDidLike(tweet_id, currentCount) {
+  function handleTweetActionBtn(tweet_id, currentCount, action) {
     console.log(tweet_id, currentCount);
     const url = '/api/tweets/action'
     const method = 'POST'
     const data = JSON.stringify({
       id: tweet_id,
-      action: 'like',
+      action: action,
     })
     const xhr = new XMLHttpRequest()
     const csrftoken = getCookie('csrftoken');
@@ -149,19 +149,36 @@
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest")
     xhr.setRequestHeader('X-CSRFToken', csrftoken)
     xhr.onload = function () {
-      console.log(xhr.status, xhr.response)
+      loadTweets(tweetsContainerElement)
     }
     xhr.send(data)
     return
   }
 
-  function LikeBtn(tweet) {
+
+  function UnLikeBtn(tweet) {
     return (
-      "<button class='btn btn-success' onClick = handleDidLike(" +
+      "<button class='btn btn-outline-primary' onClick = handleTweetActionBtn(" +
       tweet.id +
       "," +
-      tweet.likes +
-      ")> " +
+      tweet.likes + ",'unlike')>Unlike</button>"
+    );
+  }
+
+  function Retweet(tweet) {
+    return (
+      "<button class='btn btn-outline-success' onClick = handleTweetActionBtn(" +
+      tweet.id +
+      "," +
+      tweet.likes + ",'retweet')>ReTweet</button>"
+    );
+  }
+  function LikeBtn(tweet) {
+    return (
+      "<button class='btn btn-success' onClick = handleTweetActionBtn(" +
+      tweet.id +
+      "," +
+      tweet.likes + ",'like')> " +
       tweet.likes +
       " Like</button>"
     );
@@ -175,6 +192,8 @@
       tweet.content +
       '</p><div class = "btn-group">' +
       LikeBtn(tweet) +
+      UnLikeBtn(tweet) +
+      Retweet(tweet) +
       "</div></div>";
     return formattedTweet;
   }

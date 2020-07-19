@@ -76,13 +76,15 @@ def tweet_action_view(request, *args, **kwargs):
     obj = qs.first()
     if action == 'like':
         obj.likes.add(request.user)
+        serializer = TweetSerializer(obj)
+        return Response(serializer.data, status=200)
     elif action == 'unlike':
         obj.likes.remove(request.user)
     elif action == 'retweet':
         # this is in still making process
         pass
         obj.likes.add(request.user)
-    return Response({'messsage': 'Tweet Removed'}, status=200)
+    return Response({}, status=200)
 
 
 def tweet_create_view_pure_django(request, *args, **kwargs):
