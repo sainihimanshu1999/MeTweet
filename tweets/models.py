@@ -10,6 +10,9 @@ class TweetLike(models.Model):
     tweet = models.ForeignKey('Tweet', on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
 
+    class Meta():
+        auto_created = True
+
 
 class Tweet(models.Model):
     #id = models.AutoField(primary_key=True)

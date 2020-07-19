@@ -65,7 +65,7 @@ def tweet_delete_view(request, tweet_id, *args, **kwargs):
 @permission_classes([IsAuthenticated])
 def tweet_action_view(request, *args, **kwargs):
     # action options will be Like, dislike, Retweet
-    serializer = TweetActionSerializer(data=request.POST)
+    serializer = TweetActionSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         data = serializer.validated_data
         tweet_id = data.get('id')
