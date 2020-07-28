@@ -20,32 +20,24 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'l^)jf9()czo3nlgg9c%0r*p%acb@#a-6^*02)+t63dw6yo50qo'
+SECRET_KEY = 'z-g910av$_m92!+)-4tt1650g+$%e6@nru=adebe(hzowe5(ci'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
-LOGIN_URL = '/login'
-MAX_TWEET_LENGTH = 240
-TWEET_ACTION_OPTONS = ['like', 'unlike', 'retweet']
+ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = [
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
     'tweets',
-
-
-
 ]
 
 MIDDLEWARE = [
@@ -127,17 +119,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
-DEFAULT_RENDERER_CLASSES = [
-    'rest_framework.renderers.JSONRenderer',
-]
-
-if DEBUG:
-    DEFAULT_RENDERER_CLASSES += [
-        'rest_framework.renderers.BrowsableAPIRenderer',
-    ]
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.SessionAuthentication'],
-    'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES
-}
