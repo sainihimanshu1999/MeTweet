@@ -10,10 +10,14 @@ class TweetLike(models.Model):
     tweet = models.ForeignKey("Tweet", on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
 
+    class Meta():
+        auto_created = True
+
 
 class Tweet(models.Model):
     #id = models.AutoField(primary_key=True)
     # many users can tweet because of this
+    parents = models.ForeignKey('self', null=True, on_delete=models.SET_NULL)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     likes = models.ManyToManyField(
         User, related_name='tweet_user', blank=True, through=TweetLike)
