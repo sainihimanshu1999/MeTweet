@@ -2,12 +2,18 @@ import React, {useEffect, useState} from 'react'
 import {loadTweets} from '../lookup'
 
 export function TweetsComponent(props){
-
     const textAreaRef = React.createRef()
+    const [newTweets, setNewTweets] = useState([])
     const handleSubmit = (event) => {
       event.preventDefault()
       const newVal = textAreaRef.current.value
-      console.log(newVal)
+      let tempNewTweets = [...newTweets]
+      tempNewTweets.unshift({
+        content: newVal,
+        likes: 0,
+        id: 12313
+      })
+      setNewTweets(tempNewTweets)
       textAreaRef.current.value = ''
     }
     return <div className= {props.className}>
@@ -19,7 +25,7 @@ export function TweetsComponent(props){
         <button type = 'submit' className= ' btn btn-primary my-3'>Tweet</button>
       </form>
       </div>
-    <TweetsList/>
+    <TweetsList newTweets={newTweets}/>
     </div>
 
 }
@@ -64,21 +70,27 @@ export function Tweet(props){
   }
 
   
-export function TweetsList(props){
-    const[tweets,setTweets] = useState([])
+export function TweetsList(props) {
+    const [tweetsInit, setTweetsInit] = useState([])
+    const [tweets, setTweets] = useState([])
+    useEffect(()=>{
+      const final = [...props.newTweets].concat(tweetsInit)
+      if (final.length !== tweets.length) {
+        setTweets(final)
+      }
+    }, [props.newTweets, tweets, tweetsInit])
+
     useEffect(() => {
       const myCallback = (response, status) => {
-        if(status === 200){
-          setTweets(response)
-        }else{
-          alert('There was an error')
+        if (status === 200){
+          setTweetsInit(response)
+        } else {
+          alert("There was an error")
         }
-        
       }
       loadTweets(myCallback)
-      
-    }, [])
-    return tweets.map((item,index) => {
-      return <Tweet tweet={item} className='my-5 py-5 border bg-white text-dark' key={`${index}-{item.id}`}/>
+    }, [tweetsInit])
+    return tweets.map((item, index)=>{
+      return <Tweet tweet={item} className='my-5 py-5 border bg-white text-dark' key={`${index}-{item.id}`} />
     })
   }
