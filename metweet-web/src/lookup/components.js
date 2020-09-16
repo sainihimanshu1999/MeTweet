@@ -42,7 +42,7 @@ function lookup(method, endpoint, callback, data) {
 }
 
 export function createTweet(newTweet, callback){
-  lookup("GET", "/tweets/create", callback, {content: newTweet})
+  lookup("POST", "/tweets/create/", callback, {content: newTweet})
 }
 
 
