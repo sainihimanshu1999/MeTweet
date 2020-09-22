@@ -1,5 +1,7 @@
 import React, {useEffect, useState}  from 'react'
-import {apitweetList} from './lookup'
+
+import {apiTweetList} from './lookup'
+
 import {Tweet} from './detail'
 
 export function TweetsList(props) {
@@ -23,24 +25,23 @@ export function TweetsList(props) {
             alert("There was an error")
           }
         }
-        apitweetList(props.username ,handleTweetListLookup)
+        apiTweetList(props.username, handleTweetListLookup)
       }
     }, [tweetsInit, tweetsDidSet, setTweetsDidSet, props.username])
 
 
-    const handleDidRetweet= (newTweet) => {
+    const handleDidRetweet = (newTweet) => {
       const updateTweetsInit = [...tweetsInit]
       updateTweetsInit.unshift(newTweet)
       setTweetsInit(updateTweetsInit)
-
       const updateFinalTweets = [...tweets]
-      updateFinalTweets.unshit(tweets)
+      updateFinalTweets.unshift(tweets)
       setTweets(updateFinalTweets)
     }
     return tweets.map((item, index)=>{
-      return <Tweet 
+      return <Tweet  
         tweet={item} 
-        didRetweet = {handleDidRetweet}
+        didRetweet={handleDidRetweet}
         className='my-5 py-5 border bg-white text-dark' 
         key={`${index}-{item.id}`} />
     })

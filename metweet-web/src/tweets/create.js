@@ -1,22 +1,24 @@
 import React from 'react'
-import {apitweetCreate ,apitweetList} from './lookup'
+import {apiTweetCreate} from './lookup'
 
-export function TweetCreate(props) {
+
+export function TweetCreate(props){
   const textAreaRef = React.createRef()
   const {didTweet} = props
     const handleBackendUpdate = (response, status) =>{
       if (status === 201){
         didTweet(response)
-      }else{
+      } else {
         console.log(response)
-        alert('An error occured please try again')
+        alert("An error occured please try again")
       }
     }
+
     const handleSubmit = (event) => {
       event.preventDefault()
       const newVal = textAreaRef.current.value
-      //backend api request
-      apitweetCreate(newVal, handleBackendUpdate)
+      // backend api request
+      apiTweetCreate(newVal, handleBackendUpdate)
       textAreaRef.current.value = ''
     }
     return <div className={props.className}>
@@ -28,4 +30,3 @@ export function TweetCreate(props) {
         </form>
   </div>
 }
-
