@@ -31,10 +31,10 @@ def tweets_detail_view(request, tweet_id, *args, **kwargs):
     return render(request, 'tweets/detail.html', context={'tweet_id' :tweet_id})
 
 
-def tweets_profile_view(request,username, *args, **kwargs):
-    return render(request, 'tweets/profile.html', context={'profile_username' :username}, status=200)
-
-
+# def tweets_profile_view(request,username, *args, **kwargs):
+#     return render(request, 'tweets/profile.html', context={'profile_username' :username}, status=200)
+#
+#
 # def tweet_create_view_pure_django(request, *args, **kwargs):
 #     user = request.user
 #     if not request.user.is_authenticated:
