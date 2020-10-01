@@ -36,7 +36,7 @@ urlpatterns = [
     path('<int:tweet_id>', tweets_detail_view),
     re_path(r'profiles?/', include('profiles.urls') ),
     path('api/tweets/', include('tweets.api.urls')),
-    re_path(r'api/profiles?/', include('profiles.api.urls') ),
+     re_path(r'api/profiles?/', include('profiles.api.urls')),
     #old ways of using url just in django
     # path('react/', TemplateView.as_view(template_name='react.html')),
     # path('create-tweet/', tweet_create_view),
