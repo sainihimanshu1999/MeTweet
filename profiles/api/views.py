@@ -23,7 +23,7 @@ User = get_user_model()
 #     to_follow_user = ??
 #     return Response({}, status=200)
 
-@api_view(['POST'])
+@api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 def user_follow_view(request, username, *args, **kwargs):
     me = request.user
@@ -32,12 +32,7 @@ def user_follow_view(request, username, *args, **kwargs):
         return Response({}, status=404)
     other = other_user_qs.first()
     profile = other.profile
-    data = {}
-    try:
-        data = request.data
-    except:
-        pass
-    print(data)
+    data = request.data or {}
     action = data.get("action")
     if action == "follow":
         profile.followers.add(me)
@@ -45,7 +40,8 @@ def user_follow_view(request, username, *args, **kwargs):
         profile.followers.remove(me)
     else:
         pass
-    return Response({"followers": profile.followers.all()}, status=400)
+    current_followers_qs = profile.followers.all()
+    return Response({"count": current_followers_qs.count()}, status=200)
 
 
  
