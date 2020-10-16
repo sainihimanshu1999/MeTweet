@@ -33,7 +33,7 @@ def register_view(request, *args, **kwargs):
         user.set_password(form.cleaned_data.get('password1'))
         #send an confirmation email to verify the users account
         login(request, user)
-        return redirect('/')
+        return redirect('login_view')
 
     context = {
         'form':form,

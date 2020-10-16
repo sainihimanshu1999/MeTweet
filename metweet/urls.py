@@ -18,6 +18,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path,re_path,include
 from tweets.views import (
+    home_view,
     tweets_list_view,
     tweets_detail_view,
 )
@@ -29,8 +30,9 @@ from accounts.views import(
 from django.views.generic import TemplateView
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', tweets_list_view),
-    path('login/', login_view),
+    path('', home_view),
+    path('global/', tweets_list_view),
+    path('login/', login_view, name = 'login_view'),
     path('logout/', logout_view),
     path('register/', register_view),
     path('<int:tweet_id>', tweets_detail_view),
