@@ -1,10 +1,7 @@
 import {UserPicture, UserDisplay, UserLink} from './components'
 import {ProfileBadgeComponent} from './badge'
-
-export{
+export {
     ProfileBadgeComponent,
     UserPicture, 
-    UserDisplay, 
-    UserLink
-
+    UserDisplay, UserLink
 }
