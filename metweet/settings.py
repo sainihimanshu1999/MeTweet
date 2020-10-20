@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'z-g910av$_m92!+)-4tt1650g+$%e6@nru=adebe(hzowe5(ci'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost']
+ALLOWED_HOSTS = ['127.0.0.1','localhost', 'me-tweet.herokuapp.com']
 LOGIN_URL = '/login/'
 MAX_TWEET_LENGTH = 240
 TWEET_ACTION_OPTIONS = ['likes', 'unlike', 'retweet']
